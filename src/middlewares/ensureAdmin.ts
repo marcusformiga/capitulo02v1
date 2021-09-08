@@ -11,7 +11,7 @@ export async function ensureAdmin(
 
   const usersRepository = new UserRepository();
   const user = await usersRepository.findById(id);
-  console.log(user);
+
   if (!user.is_admin) {
     throw new AppError("O usuário informado não tem permissão de admin");
   }

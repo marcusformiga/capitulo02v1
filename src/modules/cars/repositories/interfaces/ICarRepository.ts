@@ -10,4 +10,5 @@ export interface ICarRepository {
     brand?: string,
     name?: string
   ): Promise<Car[]>;
+  updateStatus(id: string, avaliable: boolean): Promise<void>;
 }

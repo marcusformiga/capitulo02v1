@@ -8,6 +8,7 @@ export class CarRepository implements ICarRepository {
   constructor() {
     this.carRepository = getRepository(Car);
   }
+
   async create({
     name,
     description,
@@ -58,5 +59,14 @@ export class CarRepository implements ICarRepository {
   public async findById(id: string): Promise<Car | undefined> {
     const car = await this.carRepository.findOne(id);
     return car;
+  }
+  public async updateStatus(id: string, avaliable: boolean): Promise<void> {
+    const car = await this.carRepository
+      .createQueryBuilder()
+      .update()
+      .set({ is_avaliable: avaliable })
+      .where("id = :id")
+      .setParameters({ id })
+      .execute();
   }
 }
