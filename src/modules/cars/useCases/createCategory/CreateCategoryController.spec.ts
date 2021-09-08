@@ -19,24 +19,46 @@ describe("CreateCategoryController", () => {
     const hashedPassword = await hash("admin", 8);
     await connection.query(
       `INSERT INTO USERS(id,name,email, password, "is_admin", created_at, driver_license)
-        values('${id}','admin2', 'admin2@rent.com.br', '${hashedPassword}', true, 'now()', 'abc0801')
+        values('${id}','admin', 'admin2@rent.com.br', '${hashedPassword}', true, 'now()', 'abc0801')
         `
     );
-    afterAll(async () => {
-      await connection.dropDatabase();
-      await connection.close();
-    });
+  });
+  afterAll(async () => {
+    await connection.dropDatabase();
+    await connection.close();
   });
   it("should be able to create a new categorie", async () => {
     const responseToken = await request(app).post("/sessions").send({
       email: "admin2@rent.com.br",
-      password: "admin2",
+      password: "admin",
     });
-    console.log(responseToken.body);
-    const response = await request(app).post("/categories").send({
-      name: "testname",
-      description: "testdescription",
-    });
+    const { token } = responseToken.body;
+    const response = await request(app)
+      .post("/categories")
+      .send({
+        name: "testname",
+        description: "testdescription",
+      })
+      .set({
+        Authorization: `Bearer ${token}`,
+      });
     expect(response.status).toBe(201);
+  });
+  it("should not to be able to register 2 categories with same name", async () => {
+    const responseToken = await request(app).post("/sessions").send({
+      email: "admin2@rent.com.br",
+      password: "admin",
+    });
+    const { token } = responseToken.body;
+    const response = await request(app)
+      .post("/categories")
+      .send({
+        name: "testname",
+        description: "testdescription",
+      })
+      .set({
+        Authorization: `Bearer ${token}`,
+      });
+    expect(response.status).toBe(400);
   });
 });

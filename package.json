@@ -20,7 +20,7 @@
     "dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --respawn --ignore-watch node_modules src/shared/server/server.ts",
     "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli",
     "seed:admin": "ts-node-dev src/database/seeds/admin.ts",
-    "test": "set NODE_ENV=test && jest --runInBand"
+    "test": "set NODE_ENV=test&& jest --runInBand"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
