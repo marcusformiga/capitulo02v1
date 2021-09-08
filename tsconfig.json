@@ -1,0 +1,35 @@
+{
+  "compilerOptions": {
+  
+    "target": "es6", 
+    "module": "commonjs", 
+                                       
+    "allowJs": true, 
+    
+    "outDir": "./dist", 
+    "rootDir": "./src", 
+    "strict": false, 
+    "noImplicitAny": true, 
+    "strictPropertyInitialization": false, 
+    "resolveJsonModule": true,              
+     "baseUrl": "./src",                             
+     "paths": {
+      "@modules/*": ["modules/*"],
+      "@config/*": [
+        "config/*"
+      ],
+      "@shared/*": [
+        "shared/*"
+      ],
+      "@routes/*": [
+        "routes/*"
+      ]
+     },                                 
+    "esModuleInterop": true, 
+    "experimentalDecorators": true, 
+    "emitDecoratorMetadata": true, 
+    
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true 
+  }
+}
