@@ -19,7 +19,7 @@ export class CreateSpecificationUsesCases {
     if (specificationExists) {
       throw new AppError(
         `Já existe uma especificação com o nome ${name} informado`,
-        400
+        409
       );
     }
     const specificationCar = await this.specificationRepository.create({
