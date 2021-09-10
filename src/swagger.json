@@ -1,0 +1,138 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Rentx Documentação",
+        "description": "Está é a documentação da api rentx",
+        "version": "1.0.0",
+        "contact": {
+            "email": "kiko.antares@gmail.com"
+        }
+    },
+    "paths": {
+        "/categories": {
+            "post": {
+                "tags": ["Category"],
+                "summary": "Criação de categorias",
+                "description": "Rota para criação de categorias de carros",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    }
+                                },
+                                "example": {
+                                    "name": "Exemplo de categoria",
+                                    "description": "Exemplo de descrição de categoria"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Criação de categoria feita com sucesso"
+                    },
+                    "409": {
+                        "description": "Já existe uma categoria com o nome informado"
+                    }
+                }
+            },
+            "get": {
+                "tags": ["Category"],
+                "summary": "Listagem de categorias de carros",
+                "description": "Listagem de categorias de carros",
+                "responses": {
+                    "200": {
+                        "description": "sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "properties": {
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "description": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/categories/import": {
+            "post": {
+                "tags": ["Category"],
+                "summary": "Upload de arquivos",
+                "description": "Upload de arquivos",
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "file": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "204": {
+                        "description": "Criado com sucesso"
+                    }
+                }
+            }
+        },
+        "specifications": {
+            "post": {
+               "tags": ["Specifications"],
+               "summary": "Rota para criação das especificações de um carro",
+               "description": "Rota para criação das especificações de um carro",
+               "requestBody": {
+                   "content": {
+                       "application/json": {
+                           "schema": {
+                               "$ref": "#/definitions/Specifications"
+                           }
+                       }
+                   }
+               },
+               "responses": {
+                   "201": {
+                       "description": "Criação feita com sucesso"
+                   },
+                   "409": {
+                       "description": "Já existe uma especificação com o nome informado"
+                   }
+               } 
+            }
+        }
+    },
+    "definitions": {
+        "Specifications": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
