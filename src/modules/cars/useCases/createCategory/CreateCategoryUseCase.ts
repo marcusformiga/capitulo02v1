@@ -19,7 +19,7 @@ export class CreateCategoryUseCase {
     if (categoryExists) {
       throw new AppError(
         `Já existe uma categoria com o nome ${name} cadastrada`,
-        400
+        409
       );
     }
     const categoryCar = await this.categoryRepository.create({
