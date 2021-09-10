@@ -1,8 +1,11 @@
+import { Car } from "@modules/cars/infra/typeorm/entities/Car";
 import { ICreateRentalDto } from "@modules/rentals/dto/ICreateRentalDto";
 import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  ManyToOne,
   PrimaryColumn,
   UpdateDateColumn,
 } from "typeorm";
@@ -21,6 +24,9 @@ export class Rental implements ICreateRentalDto {
   end_date: Date;
   @Column()
   return_date: Date;
+  @ManyToOne(() => Car)
+  @JoinColumn({ name: "car_id" })
+  car: Car;
   @Column()
   total: number;
   @CreateDateColumn()
