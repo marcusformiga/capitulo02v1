@@ -28,4 +28,8 @@ export class RentalRepositoryInMemory implements IRentalRepository {
     });
     return rental;
   }
+  public async findById(id: string): Promise<Rental> {
+    const rental = this.rentals.find((rental) => rental.id === id);
+    return rental;
+  }
 }
