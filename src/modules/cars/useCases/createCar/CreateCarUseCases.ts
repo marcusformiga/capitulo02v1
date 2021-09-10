@@ -32,7 +32,8 @@ export class CreateCarUseCases {
     );
     if (carExists) {
       throw new AppError(
-        `Já existe um carro com a placa ${license_plate} cadastrada`
+        `Já existe um carro com a placa ${license_plate} cadastrada`,
+        409
       );
     }
     const car = await this.carRepository.create({
