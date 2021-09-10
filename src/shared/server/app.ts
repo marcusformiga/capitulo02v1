@@ -10,11 +10,15 @@ import { sessionsRouter } from "@shared/routes/sessions.routes";
 import { AppError } from "../errors/AppError";
 import { carRoutes } from "@shared/routes/cars.routes";
 import { rentalsRouter } from "@shared/routes/rentals.routes";
-import createConnection from "../../database";
+import createConnection from "../../database/index";
+import swaggerUi from "swagger-ui-express";
+import swaggerFile from "../../swagger.json";
 const app = express();
 const port = 3001;
 
+createConnection();
 app.use(express.json());
+app.use("/api/v1/docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 app.use("/categories", categoriesRoutes);
 app.use("/specifications", specificationRouter);
 app.use("/users", usersRouter);
