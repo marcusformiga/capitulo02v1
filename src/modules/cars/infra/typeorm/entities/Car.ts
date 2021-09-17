@@ -34,7 +34,9 @@ export class Car implements ICreateCarDto {
   @ManyToMany(() => Specification)
   @JoinTable({
     name: "specifications_cars",
+    // tabela referencia da cria~]ao
     joinColumns: [{ name: "cars_id" }],
+    // tabela referencia dentro do relacionamento
     inverseJoinColumns: [{ name: "specifications_id" }],
   })
   specifications: Specification[];

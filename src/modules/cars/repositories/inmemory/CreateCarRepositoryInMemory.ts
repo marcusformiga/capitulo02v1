@@ -47,7 +47,7 @@ export class CreateCarRepositoryInMemory implements ICarRepository {
     return car;
   }
   public async updateStatus(id: string, avaliable: boolean): Promise<void> {
-    const findIdex = this.cars.findIndex((car) => car.id === id);
-    this.cars[findIdex].is_avaliable = avaliable;
+    const findIndex = this.cars.findIndex((car) => car.id === id);
+    this.cars[findIndex].is_avaliable = avaliable;
   }
 }
