@@ -10,9 +10,11 @@ export class ImportCategoryUseCases {
     @inject("CategoryRepository")
     private categoryRepository: ICategoryRepository
   ) {}
-  public execute(file: any) {
+  public execute(file: Express.Multer.File) {
+    // permite fazer a leitura do arquivo em partes
     const stream = fs.createReadStream(file.path);
     const parseFile = csvparse();
+    // envia pedaços do nosso arquivo para um lugar que desejamos
     stream.pipe(parseFile);
     parseFile.on("data", async (line) => {
       console.log(line);

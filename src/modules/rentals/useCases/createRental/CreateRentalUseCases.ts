@@ -51,7 +51,6 @@ export class CreateRentalUseCases {
       dateNow,
       return_date
     );
-    console.log(compareDate);
     if (compareDate < minHours) {
       throw new AppError(
         "Um carro deve ser alugado por um periodo minímo de 24 horas",

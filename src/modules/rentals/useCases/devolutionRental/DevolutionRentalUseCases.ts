@@ -25,28 +25,32 @@ export class DevolutionRentalUseCases {
     const car = await this.carRepository.findById(rental.car_id);
     // verificar o tempo de aluguel e fazer calculos (verificar se teve multa etc)
     if (!rental) {
-      throw new AppError(`Não existe aluguel`, 404);
+      throw new AppError(
+        `Não existe aluguel para o carro de id ${car_id}`,
+        404
+      );
     }
     const dateNow = this.dateProvider.dateNow();
-    let dayli = this.dateProvider.compareInDays(
+    let daily = this.dateProvider.compareInDays(
       rental.start_date,
       this.dateProvider.dateNow()
     );
-    if (dayli <= 0) {
-      dayli = daily_min;
+    if (daily <= 0) {
+      daily = daily_min;
     }
+    // calculo dos dias de atraso
     const daysDelayRental = this.dateProvider.compareInDays(
       dateNow,
       rental.end_date
     );
-    let total = 0;
+    let totalRental = 0;
     if (daysDelayRental > 0) {
       const calculate_fine = daysDelayRental * car.fine_amount;
-      total = calculate_fine;
+      totalRental = calculate_fine;
     }
-    total += dayli * car.dayly_rate;
+    totalRental += daily * car.dayly_rate;
     rental.end_date = this.dateProvider.dateNow();
-    rental.total = total;
+    rental.total = totalRental;
     await this.rentalRepository.create(rental);
     await this.carRepository.updateStatus(car.id, true);
     return rental;

@@ -32,4 +32,7 @@ export class RentalRepositoryInMemory implements IRentalRepository {
     const rental = this.rentals.find((rental) => rental.id === id);
     return rental;
   }
+  findByUser(user_id: string): Promise<Rental[]> {
+    throw new Error("Method not implemented.");
+  }
 }
