@@ -18,12 +18,13 @@ const port = 3001;
 
 createConnection();
 app.use(express.json());
-app.use("/api/v1/docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 app.use("/categories", categoriesRoutes);
 app.use("/specifications", specificationRouter);
 app.use("/users", usersRouter);
 app.use("/cars", carRoutes);
 app.use("/rentals", rentalsRouter);
+app.use("/api/v1/docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
+
 app.use(sessionsRouter);
 app.use(
   (error: Error, request: Request, response: Response, next: NextFunction) => {
