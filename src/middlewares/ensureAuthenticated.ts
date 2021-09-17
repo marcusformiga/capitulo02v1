@@ -23,6 +23,7 @@ export async function ensureAuthenticated(
     if (!user) {
       throw new AppError(`Usuário com id ${user_id} não foi encontrado`, 404);
     }
+    // sobreescrita no request do express
     request.user = {
       id: user_id,
     };
