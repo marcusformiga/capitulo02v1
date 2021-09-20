@@ -4,7 +4,7 @@ import { IRentalRepository } from "@modules/rentals/repositories/interfaces/IRen
 import { AppError } from "@shared/errors/AppError";
 import { IDateProvider } from "@shared/providers/Date/IDateProvider";
 import { inject, injectable } from "tsyringe";
-
+// para fazer a devolução de um aluguel precisamos informar o id do carro alugado e o usuario
 interface IRequest {
   car_id: string;
   user_id: string;
