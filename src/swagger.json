@@ -78,6 +78,9 @@
                 "tags": ["Category"],
                 "summary": "Upload de arquivos",
                 "description": "Upload de arquivos",
+                 "security": [{
+                    "bearerAuth": []
+                }],
                 "requestBody": {
                     "content": {
                         "multipart/form-data": {
@@ -105,6 +108,7 @@
                "tags": ["Specifications"],
                "summary": "Rota para criação das especificações de um carro",
                "description": "Rota para criação das especificações de um carro",
+               
                "requestBody": {
                    "content": {
                        "application/json": {
@@ -122,6 +126,77 @@
                        "description": "Já existe uma especificação com o nome informado"
                    }
                } 
+            }
+        },
+        "/cars": {
+            "post": {
+                "tags": ["Cars"],
+                "summary": "Rota para criação de um carro",
+                "description": "Rota responsável por criar um carro",
+                 "security": [{
+                    "bearerAuth": []
+                }],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/definitions/Cars"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Sucesso"
+                    },
+                    "409": {
+                        "description": "Já existe um carro com a license plate cadastrada"
+                    }
+                }
+            }
+        },
+        "/cars/images/{id}": {
+            "post": {
+                "tags": ["Cars"],
+                "summary": "Upload de arquivos",
+                "description": "Upload de imagens de carros",
+                 "security": [{
+                    "bearerAuth": []
+                }],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "car_id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object"
+                            },
+                            "properties": {
+                                "images": {
+                                    "type":"array",
+                                    "items": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Criado com sucesso"
+                    }
+                }
             }
         },
         "sessions": {
@@ -166,6 +241,33 @@
                     "type": "string"
                 },
                 "description": {
+                    "type": "string"
+                }
+            }
+        },
+        "Cars": 
+        {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "license_plate": {
+                    "type": "string"
+                },
+                "daily_rate": {
+                    "type":"number"
+                },
+                "fine_amount": {
+                    "type": "number"
+                },
+                "brand": {
+                    "type": "string"
+                },
+                "category_id": {
                     "type": "string"
                 }
             }
