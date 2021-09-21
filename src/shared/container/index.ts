@@ -1,4 +1,6 @@
+import { UsersTokensRepository } from "@modules/accounts/infra/typeorm/implementations/UsersTokensRepository";
 import { IUserRepository } from "@modules/accounts/repositories/interfaces/IUserRepository";
+import { IUserTokensRepository } from "@modules/accounts/repositories/interfaces/IUserTokensRepository";
 import { UserRepository } from "@modules/accounts/repositories/UserRepository";
 import { CarImagesRepository } from "@modules/cars/infra/typeorm/implementations/CarImagesRepository";
 import { CarRepository } from "@modules/cars/infra/typeorm/implementations/CarRepository";
@@ -29,4 +31,8 @@ container.registerSingleton<ICarRepository>("CarRepository", CarRepository);
 container.registerSingleton<IRentalRepository>(
   "RentalRepository",
   RentalRepository
+);
+container.registerSingleton<IUserTokensRepository>(
+  "UserTokensRepository",
+  UsersTokensRepository
 );
