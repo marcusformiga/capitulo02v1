@@ -1,3 +1,5 @@
+import authConfig from "@config/authConfig";
+import { UsersTokensRepository } from "@modules/accounts/infra/typeorm/implementations/UsersTokensRepository";
 import { UserRepository } from "@modules/accounts/repositories/UserRepository";
 import { AppError } from "@shared/errors/AppError";
 import { Request, Response, NextFunction } from "express";
@@ -12,14 +14,19 @@ export async function ensureAuthenticated(
   next: NextFunction
 ) {
   const authHeader = request.headers.authorization;
+  const userTokensRepository = new UsersTokensRepository();
+
   if (!authHeader) {
     return response.status(400).json({ error: "Token jwt não enviado" });
   }
   const [bearer, token] = authHeader.split(" ");
   try {
-    const { sub: user_id } = verify(token, "husaehasuehaushe") as IPayload;
+    const { sub: user_id } = verify(
+      token,
+      authConfig.secret_refresh_token
+    ) as IPayload;
     const usersRepository = new UserRepository();
-    const user = await usersRepository.findById(user_id);
+    const user = await userTokensRepository.findByIdAndToken(user_id, token);
     if (!user) {
       throw new AppError(`Usuário com id ${user_id} não foi encontrado`, 404);
     }
