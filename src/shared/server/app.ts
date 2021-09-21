@@ -13,6 +13,7 @@ import { rentalsRouter } from "@shared/routes/rentals.routes";
 import createConnection from "../../database/index";
 import swaggerUi from "swagger-ui-express";
 import swaggerFile from "../../swagger.json";
+import { passwordRouter } from "@shared/routes/password.routes";
 const app = express();
 const port = 3001;
 
@@ -23,6 +24,7 @@ app.use("/specifications", specificationRouter);
 app.use("/users", usersRouter);
 app.use("/cars", carRoutes);
 app.use("/rentals", rentalsRouter);
+app.use("/password", passwordRouter);
 app.use("/api/v1/docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 app.use(sessionsRouter);
