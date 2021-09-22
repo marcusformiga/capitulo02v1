@@ -9,6 +9,6 @@ export class SendForgotPasswordController {
       SendForgotPasswordMailUseCases
     );
     await sendForgotPasswordMailUseCases.execute(email);
-    return response.send();
+    return response.status(204).send();
   }
 }

@@ -6,7 +6,7 @@ import { IMailProvider } from "./Mail/IMailProvider";
 
 container.registerSingleton<IDateProvider>("DayjsProvider", DayjsProvider);
 
-container.registerSingleton<IMailProvider>(
+container.registerInstance<IMailProvider>(
   "MailProvider",
-  EtherealMailProvider
+  new EtherealMailProvider()
 );

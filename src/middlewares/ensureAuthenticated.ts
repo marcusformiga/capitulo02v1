@@ -14,7 +14,6 @@ export async function ensureAuthenticated(
   next: NextFunction
 ) {
   const authHeader = request.headers.authorization;
-  const userTokensRepository = new UsersTokensRepository();
 
   if (!authHeader) {
     return response.status(400).json({ error: "Token jwt não enviado" });
@@ -25,11 +24,7 @@ export async function ensureAuthenticated(
       token,
       authConfig.secret_refresh_token
     ) as IPayload;
-    const usersRepository = new UserRepository();
-    const user = await userTokensRepository.findByIdAndToken(user_id, token);
-    if (!user) {
-      throw new AppError(`Usuário com id ${user_id} não foi encontrado`, 404);
-    }
+
     // sobreescrita no request do express
     request.user = {
       id: user_id,
